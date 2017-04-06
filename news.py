@@ -25,5 +25,5 @@ class NewsSpider(scrapy.Spider):
         sg = SgItem()  
         sg['url'] = response.url  
         sg['title'] = sel.xpath("//div[@id='newsTitle']").extract()  
-        sg['body'] = sel.xpath("//div[@id='content']//p//text()").extract()  
+        sg['body'] = sel.xpath("//div[@id='newsContnet']//p//text()").extract()  
         return sg  
