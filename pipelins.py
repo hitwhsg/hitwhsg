@@ -4,8 +4,24 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
+from scrapy import signals  
+import json  
+import codecs  
+import sys  
+import sg.items
+reload(sys)  
+sys.setdefaultencoding( "utf-8" )  
+class SgPipeline(object):  
+    def process_item(self, item, spider):  
+        link_url = item['url']  
+          
+        fp = open("/home/shige/sg/sg/1.txt", 'w')  
+        fp.write(item['body'])  
+        fp.close()  
+        return item 
 
 
+'''
 from twisted.enterprise import adbapi
 import MySQLdb
 import MySQLdb.cursors
@@ -22,19 +38,22 @@ class SgPipeline(object):
             charset = 'utf8',
             cursorclass = MySQLdb.cursors.DictCursor,
             use_unicode = True,
-            )    
+            )
         self.dbpool = adbapi.ConnectionPool('MySQLdb',**dbargs)
 
 
-    '''
-    The default pipeline invoke function
-    '''
-        def process_item(self, item,spider):
-            res = self.dbpool.runInteraction(self.insert_into_table,item)
-                return item
+    
+   # The default pipeline invoke function
+    
+    def process_item(self, item,spider):
+        res = self.dbpool.runInteraction(self.insert_into_table,item)
+        return item
 
-        def insert_into_table(self,conn,item):
-                conn.execute('insert into info(title,url,body) values(%s,%s,%s)', (item['title'],item['url'],item['body']))
+    def insert_into_table(self,conn,item):
+        conn.execute('insert into info(title,url,body) values(%s,%s,%s)', (item['title'],item['url'],item['body']))
+'''
+
+
 
 '''
 class SgPipeline(object):
