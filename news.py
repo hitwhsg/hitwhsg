@@ -11,6 +11,7 @@ from scrapy.selector import Selector
 
 class NewsSpider(scrapy.Spider):
     name = "news"
+    test = "test"
     # allowed_domains = ["http://news.hitwh.edu.cn/"]
     start_urls = ['http://news.hitwh.edu.cn/']
 
